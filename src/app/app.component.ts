@@ -1,5 +1,5 @@
 import { Component, OnInit, VERSION } from '@angular/core';
-import { of, from } from 'rxjs';
+import { of, from, map, tap, take } from 'rxjs';
 
 @Component({
   selector: 'my-app',
@@ -10,18 +10,31 @@ export class AppComponent implements OnInit {
   name = 'Angular ' + VERSION.major;
 
   ngOnInit() {
-    of(2, 4, 6, 8).subscribe((item) => console.log(item));
+    //of(2, 4, 6, 8).subscribe((item) => console.log(item));
 
-    from([20,15,10,5]).subscribe({
-      next: (item) => console.log(`resulting item .. ${item}`),
-      error: (err) => console.error(`error occured: ${err}`),
-      complete: () => console.log('complete')
-    });
+    from([20, 15, 10, 5])
+      .pipe(
+        tap((item) => console.log(`emitted item .. ${item}`)),
+        map((item) => item * 2),
+        map((item) => item - 10),
+        map((item) => {
+          if (item === 0) {
+            throw new Error('zero detected');
+          }
+          return item;
+        }),
+        take(3)
+      )
+      .subscribe({
+        next: (item) => console.log(`resulting item .. ${item}`),
+        error: (err) => console.error(`error occured: ${err}`),
+        complete: () => console.log('complete'),
+      });
 
-    of('this', 'is', 'a', 'test', '+++success').subscribe({
+    /*of('this', 'is', 'a', 'test', '+++success').subscribe({
       next: (item) => console.log(item),
       error: (err) => console.error(`error occured: ${err}`),
       complete: () => console.log('complete')
-    });
+    });*/
   }
 }
