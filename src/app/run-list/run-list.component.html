@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header">
+      {{pageTitle}}
+    </div>
+
+    <div class="table-responsive">
+        <table class="table mb-0"
+               *ngIf="runs$ | async as runs">
+          <thead>
+            <tr>
+              <th>Run Id</th>
+              <th>Run State Id</th>
+              <th>Job Name</th>
+              <th>Started</th>
+              <th>Last update</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let run of runs">
+              <td>{{ run.id }}</td>
+              <td>{{ run.runState }}</td>
+              <td>{{ run.job?.name }}</td>
+              <td>{{ run.started }}</td>
+              <td>{{ run.lastUpdate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage$ | async as errorMessage">
+  {{ errorMessage }}
+</div>
