@@ -1,3 +1,53 @@
-p {
-  font-family: Lato;
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar{
+  background-color: #0063aa;
+  color:#ffffff;
+  flex-grow: 1;
+}
+
+.nav-item > a{
+  color: white;
+  text-decoration: none;
+}
+
+.container{
+  flex-grow: 1;
+}
+
+.navbar-nav{
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-item{
+  display: block;
+  flex-grow: 1;
+  padding: 1em
+}
+
+.navbar-brand{
+  display: block;
+  font-size: large;
+}
+
+.nav-link {
+  font-size: large;
+  cursor: pointer;
+  display: block;
+}
+
+.active {
+  background-color: white;
+}
+
+.active > a {
+  color: #0063aa !important;
+}
+
+:host{
+  display: flex;
+  flex-flow: column;
 }

@@ -11,7 +11,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       {
         path: 'runs',
         loadChildren: () =>
-          import('src/dataModel/run.module').then(m => m.RunModule)
+          import('src/app/run-list/run.module').then(m => m.RunModule)
       },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

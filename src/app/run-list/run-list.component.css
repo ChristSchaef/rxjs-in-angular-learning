@@ -1,0 +1,50 @@
+.runs-table{
+    margin: 2em;
+    width: calc(100% - 4em);
+    height: calc(100% - 4em);
+    border-spacing: 0px;
+}
+
+.run-view-shell{
+    display: flex;
+}
+
+.overview{
+    flex-grow: 2;
+}
+
+.specific-job{
+    flex-grow: 1;
+}
+
+.runs-table-header{
+    background-color: gray;
+}
+
+td, th {
+    padding: 1em;
+}
+
+th{
+    text-align: left;
+}
+
+.runs-table-row{
+    cursor: pointer;
+}
+
+.runs-table-row.finished-row{
+    background-color: lightgreen;
+}
+
+.runs-table-row.failed-row{
+    background-color: lightcoral;
+}
+
+.runs-table-row.running-row{
+    background-color: lightyellow;
+}
+
+.runs-table-row.unknown-row{
+    background-color: lightgrey;
+}

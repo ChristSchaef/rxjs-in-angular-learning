@@ -11,7 +11,7 @@ import { AppData } from './app-data';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { RunListComponent } from './run-list/run-list.component';
+import { JobOverviewComponent } from './job-overview/job-overview.component';
 
 @NgModule({
   imports:      [
@@ -24,4 +24,9 @@ import { RunListComponent } from './run-list/run-list.component';
   declarations: [ AppComponent, WelcomeComponent, PageNotFoundComponent ],
   bootstrap:    [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(){
+    document.body.style.margin = '0';
+  }
+
+}

@@ -7,5 +7,5 @@ import { of, from, map, tap, take } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  name = 'Angular ' + VERSION.major;
+  name = 'RxJs Run Test';
   }

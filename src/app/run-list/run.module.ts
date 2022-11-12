@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { RunListComponent } from "src/app/run-list/run-list.component";
+import { JobOverviewModule } from "../job-overview/job-overview.module";
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { RunListComponent } from "src/app/run-list/run-list.component";
           path: '',
           component: RunListComponent
         }
-      ])
+      ]),
+      JobOverviewModule
     ],
     declarations: [
       RunListComponent

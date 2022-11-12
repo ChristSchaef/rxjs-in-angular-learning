@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, shareReplay, throwError } from "rxjs";
+import { BehaviorSubject, catchError, combineLatest, map, Observable, shareReplay, tap, throwError } from "rxjs";
 import { Job } from "./job";
 
 @Injectable({
@@ -17,6 +17,22 @@ export class JobService {
         shareReplay(1)
     );
 
+    private jobSelectedSubject = new BehaviorSubject<number>(0);
+    jobSelectedAction$ = this.jobSelectedSubject.asObservable();
+
+    selectedJobChange(jobId: number) {
+        this.jobSelectedSubject.next(+jobId);
+      }
+
+    selectedJob$ = combineLatest([this.jobs$, this.jobSelectedAction$])
+        .pipe
+        (
+            map(([products, selectedProductId]) =>
+                products.find(product => product.id === selectedProductId)
+            ),
+            tap(product => console.log('selectedProduct', product)),
+            shareReplay(1)
+        );
 
     private handleError(err: HttpErrorResponse): Observable<never> {
         let errorMessage: string;

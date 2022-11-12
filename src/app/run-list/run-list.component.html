@@ -1,31 +1,29 @@
-<div class="card">
-    <div class="card-header">
-      {{pageTitle}}
-    </div>
-
-    <div class="table-responsive">
-        <table class="table mb-0"
-               *ngIf="runs$ | async as runs">
-          <thead>
-            <tr>
-              <th>Run Id</th>
-              <th>Run State Id</th>
-              <th>Job Name</th>
-              <th>Started</th>
-              <th>Last update</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let run of runs">
-              <td>{{ run.id }}</td>
-              <td>{{ run.runState }}</td>
-              <td>{{ run.job?.name }}</td>
-              <td>{{ run.started }}</td>
-              <td>{{ run.lastUpdate }}</td>
-            </tr>
-          </tbody>
+<div class="run-view-shell">
+    <div class="overview">
+        <table class="runs-table" *ngIf="runs$ | async as runs">
+            <thead class="runs-table-header">
+                <tr>
+                    <th>Run Id</th>
+                    <th>Run State Id</th>
+                    <th>Job Name</th>
+                    <th>Started</th>
+                    <th>Last update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr [ngClass]="getRunEntryClass(run.runState)" *ngFor="let run of runs" (click)="onRunEntryClick(run.job?.id)">
+                    <td>{{ run.id }}</td>
+                    <td>{{ run.runStateName }}</td>
+                    <td>{{ run.job?.name }}</td>
+                    <td>{{ run.started | date:'MM/dd/yyyy hh:mm' }}</td>
+                    <td>{{ run.lastUpdate | date:'MM/dd/yyyy hh:mm' }}</td>
+                </tr>
+            </tbody>
         </table>
-      </div>
+    </div>
+    <div class="specific-job">
+        <app-job-overview></app-job-overview>
+    </div>
 </div>
 
 <div class="alert alert-danger"
