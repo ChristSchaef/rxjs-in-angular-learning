@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { catchError, EMPTY, Subject } from 'rxjs';
 import { JobService } from 'src/dataModel/job.service';
+import { Run } from 'src/dataModel/run';
 import { RunService } from 'src/dataModel/run.service';
 import { JobOverviewComponent } from '../job-overview/job-overview.component';
 
@@ -46,10 +47,29 @@ export class RunListComponent{
     }
   }
 
-  onRunEntryClick(jobId: number | undefined): void{
-    if(jobId){
-      this.jobService.selectedJobChange(jobId);
+  onRunEntryClick(event: any, jobId: number | undefined): void {
+    if (jobId) {
+      this.jobService.selectedRunChange(jobId);
     }
+    var target = event.target.parentElement;
+    target.parentElement.childNodes.forEach(
+      (elm: any) => {
+        if (elm?.classList?.contains('active') > -1) {
+          elm?.classList.remove("active");
+        }
+      }
+    );
+
+    
+    target?.classList.toggle("active")
+
+  }
+
+  onRunRerunClick(run: Run | undefined): void {
+    if(!run){
+      return;
+    }
+    this.runService.runRetriggered(run);
   }
 
 }

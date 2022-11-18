@@ -20,7 +20,7 @@ export class JobService {
     private jobSelectedSubject = new BehaviorSubject<number>(0);
     jobSelectedAction$ = this.jobSelectedSubject.asObservable();
 
-    selectedJobChange(jobId: number) {
+    selectedRunChange(jobId: number) {
         this.jobSelectedSubject.next(+jobId);
       }
 

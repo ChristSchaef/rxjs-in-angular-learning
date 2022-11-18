@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, combineLatest, map, Observable, shareReplay, throwError } from "rxjs";
+import { catchError, combineLatest, map, merge, Observable, scan, shareReplay, Subject, throwError } from "rxjs";
 import { JobService } from "./job.service";
 import { Run } from "./run";
 
@@ -64,6 +64,18 @@ export class RunService {
                 return 'Unknown';
             }
         }
+    }
+
+    
+    private runRetriggeredSubject = new Subject<Run>();
+    runRetriggeredAction$ = this.runRetriggeredSubject.asObservable();
+    productRetriggering$ = merge(this.runsWithJobs$, this.runRetriggeredAction$).pipe(
+        scan((acc: any,value: any)=> (value instanceof Array)? [...value]: [...acc, value], [] as Run[])
+    ) 
+
+    runRetriggered(run: Run) {
+        run.runState = 2;
+        this.runRetriggeredSubject.next(run);
     }
 }
 
